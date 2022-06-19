@@ -10,7 +10,7 @@ export class Donator extends Document {
   @Prop({ required: true })
   lName: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   email: string;
 
   @Prop({ required: true })
@@ -19,7 +19,7 @@ export class Donator extends Document {
   @Prop()
   phone: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   cin: string;
 }
 

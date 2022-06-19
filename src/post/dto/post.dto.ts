@@ -1,4 +1,11 @@
-import { IsString, IsInt, IsEmail, Length, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsInt,
+  IsEmail,
+  Length,
+  IsNotEmpty,
+  IsIn,
+} from 'class-validator';
 
 export class PostDto {
   @IsString()
@@ -7,7 +14,8 @@ export class PostDto {
 
   @IsString()
   @IsNotEmpty()
-  bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+  @IsIn(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+  bloodType: string;
 
   @IsString()
   @IsNotEmpty()

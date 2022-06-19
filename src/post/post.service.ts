@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './post.schema';
 
 @Injectable()
@@ -21,11 +22,36 @@ export class PostService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    // get all posts
+    return this.postModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    // get one post
+    return this.postModel.findById(id);
+  }
+
+  update(id: string, updatePostDto: UpdatePostDto) {
+    // update one post
+    return this.postModel.findByIdAndUpdate(id, updatePostDto);
+  }
+
+  async findByUser(userId: string) {
+    // get all posts by user
+    return this.postModel.find({ userId });
+  }
+
+  async remove(id: string) {
+    // check post if exists before deleting
+    try {
+      const post = await this.postModel.findOne({ _id: id });
+      if (!post) {
+        return { error: 'Post not found' };
+      }
+      return this.postModel.findByIdAndDelete(id);
+    } catch (error) {
+      return { error: error.message };
+    }
   }
 
   //   update(id: number, updateDonatorDto: UpdateDonatorDto) {
