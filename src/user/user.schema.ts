@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { Document } from 'mongoose';
 
 @Schema({ timestamps: true })
-export class User extends Document {
+export class Donator extends Document {
   @Prop({ required: true })
   fName: string;
 
@@ -23,4 +23,4 @@ export class User extends Document {
   cin: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const DonatorSchema = SchemaFactory.createForClass(Donator);

@@ -35,8 +35,8 @@ export class UserController {
       return { error: error.message };
     }
   }
-  @Role('USER')
-  @UseGuards(JwtGuard)
+  // @Role('USER')
+  // @UseGuards(JwtGuard)
   @Get('/test')
   findAll() {
     return this.userService.findAll();
