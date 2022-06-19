@@ -11,6 +11,9 @@ export class Post extends Document {
   @Prop({ required: true })
   bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
 
+  @Prop({ required: true })
+  type: 'donation' | 'request' | 'campaign';
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Donator' })
   createdBy: Donator;
 }
