@@ -4,7 +4,7 @@ import { AppService } from '../testModule/app.service';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
-import { UserModule } from 'src/user/user.module';
+import { DonatorModule } from 'src/donator/donator.module';
 
 @Module({
   imports: [
@@ -18,9 +18,9 @@ import { UserModule } from 'src/user/user.module';
       },
       inject: [ConfigService],
     }),
-    UserModule
+    DonatorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

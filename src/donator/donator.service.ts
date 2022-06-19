@@ -1,51 +1,54 @@
+import { LoginDonatorDto } from './dto/login-donator.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './user.schema';
+import { CreateDonatorDto } from './dto/create-donator.dto';
+import { UpdateDonatorDto } from './dto/update-donator.dto';
+import { Donator } from './donator.schema';
 import { Model } from 'mongoose';
 import { AuthService } from 'src/auth/auth.service';
 import * as argon from 'argon2';
 @Injectable()
-export class UserService {
+export class DonatorService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(Donator.name) private readonly donatorModel: Model<Donator>,
     private readonly authService: AuthService,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createDonatorDto: CreateDonatorDto) {
     try {
-      const user = await this.userModel.findOne({ email: createUserDto.email });
+      const user = await this.donatorModel.findOne({
+        email: createDonatorDto.email,
+      });
       if (user) throw new Error('Email already exists');
 
       // hash the password
-      const password = await argon.hash(createUserDto.password);
+      const password = await argon.hash(createDonatorDto.password);
 
       // create the user
-      const createdUser = new this.userModel({
-        ...createUserDto,
+      const createdUser = new this.donatorModel({
+        ...createDonatorDto,
         password,
       });
 
-      await createdUser.save();
+      let NewUser = await createdUser.save();
 
       if (!createdUser) throw new Error('Failed to create user');
 
       // create the token
       const token = await this.authService.createToken(createdUser, 'USER');
 
-      return { token, user };
+      return { token, NewUser };
     } catch (error) {
       return { error: error.message };
     }
   }
 
-  async login(loginUserDto: CreateUserDto) {
+  async login(LoginDonatorDto: CreateDonatorDto) {
     try {
-      const { email, password } = loginUserDto;
+      const { email, password } = LoginDonatorDto;
 
       // check the email provided
-      const user = await this.userModel.findOne({ email });
+      const user = await this.donatorModel.findOne({ email });
       if (!user) throw new Error('invalid credentials');
 
       // check the password provided
@@ -70,7 +73,7 @@ export class UserService {
     return `This action returns a #${id} user`;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  update(id: number, updateDonatorDto: UpdateDonatorDto) {
     return `This action updates a #${id} user`;
   }
 
