@@ -1,3 +1,4 @@
+import { PostModule } from './../post/post.module';
 import { Module } from '@nestjs/common';
 import { AppController } from '../testModule/app.controller';
 import { AppService } from '../testModule/app.service';
@@ -19,6 +20,7 @@ import { DonatorModule } from 'src/donator/donator.module';
       inject: [ConfigService],
     }),
     DonatorModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
