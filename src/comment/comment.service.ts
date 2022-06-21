@@ -22,27 +22,22 @@ export class CommentService {
   }
 
   findAll() {
-    // get all comments
     return this.commentModel.find();
   }
 
   findOne(id: string) {
-    // get one comment
     return this.commentModel.findById(id);
   }
 
   update(id: string, updateCommentDto: UpdateCommentDto) {
-    // update one comment
     return this.commentModel.findByIdAndUpdate(id, updateCommentDto);
   }
 
-  async findByUser(userId: string) {
-    // get all comments by user
+  findByUser(userId: string) {
     return this.commentModel.find({ userId });
   }
 
   async remove(id: string) {
-    // check comment if exists before deleting
     try {
       const comment = await this.commentModel.findOne({ _id: id });
       if (!comment) {

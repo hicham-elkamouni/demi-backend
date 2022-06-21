@@ -38,7 +38,7 @@ export class DonatorController {
   }
   // @Role('USER')
   // @UseGuards(JwtGuard)
-  @Get('/test')
+  @Get()
   findAll() {
     return this.donatorService.findAll();
   }
