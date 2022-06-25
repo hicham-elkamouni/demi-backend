@@ -5,10 +5,7 @@ import { Document } from 'mongoose';
 @Schema({ timestamps: true })
 export class Donator extends Document {
   @Prop({ required: true })
-  fName: string;
-
-  @Prop({ required: true })
-  lName: string;
+  fullName: string;
 
   @Prop({ required: true, unique: true })
   email: string;
