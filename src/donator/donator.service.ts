@@ -37,7 +37,7 @@ export class DonatorService {
       // create the token
       const token = await this.authService.createToken(createdUser, 'USER');
 
-      return { token, NewUser };
+      return NewUser;
     } catch (error) {
       return { error: error.message };
     }
