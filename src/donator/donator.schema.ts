@@ -16,8 +16,11 @@ export class Donator extends Document {
   @Prop()
   phone: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop()
   cin: string;
+
+  @Prop()
+  bloodType: string;
 }
 
 export const DonatorSchema = SchemaFactory.createForClass(Donator);

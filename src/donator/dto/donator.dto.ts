@@ -15,4 +15,7 @@ export class DonatorDto {
 
   @IsString()
   cin: string;
+
+  @IsString()
+  bloodType: string;
 }
