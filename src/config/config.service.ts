@@ -12,17 +12,15 @@ export class ConfigService {
   private readonly envConfig: EnvConfig;
 
   constructor() {
-    const file: Buffer | undefined = fs.readFileSync('.env');
+    const file: any = fs.readFileSync('.env');
     const config = dotenv.parse(file);
     this.envConfig = this.validateInput(config);
   }
   private validateInput(envConfig: EnvConfig): EnvConfig {
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
       DATABASE_URI: Joi.string().required(),
-      ACCESS_TOKEN: Joi.string().required(),
-      REFRESH_TOKEN: Joi.string().required(),
       USER_SECRET_KEY: Joi.string().required(),
-      PORT: Joi.string().required(),
+      PORT: Joi.number().required(),
     });
 
     const { error, value: validatedEnvConfig } =
