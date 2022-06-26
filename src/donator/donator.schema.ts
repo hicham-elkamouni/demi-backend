@@ -5,10 +5,7 @@ import { Document } from 'mongoose';
 @Schema({ timestamps: true })
 export class Donator extends Document {
   @Prop({ required: true })
-  fName: string;
-
-  @Prop({ required: true })
-  lName: string;
+  fullName: string;
 
   @Prop({ required: true, unique: true })
   email: string;
@@ -19,8 +16,11 @@ export class Donator extends Document {
   @Prop()
   phone: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop()
   cin: string;
+
+  @Prop()
+  bloodType: string;
 }
 
 export const DonatorSchema = SchemaFactory.createForClass(Donator);

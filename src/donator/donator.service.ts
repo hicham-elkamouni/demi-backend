@@ -54,7 +54,7 @@ export class DonatorService {
       // check the password provided
       const passwordMatches = await argon.verify(user.password, password);
 
-      if (!passwordMatches) throw new Error('invalid credentials');
+      if (!passwordMatches) throw new Error('something went wrong');
 
       // create the token
       const token = await this.authService.createToken(user, 'USER');

@@ -2,10 +2,7 @@ import { IsString, IsInt, IsEmail, Length } from 'class-validator';
 
 export class DonatorDto {
   @IsString()
-  fName: string;
-
-  @IsString()
-  lName: string;
+  fullName: string;
 
   @IsEmail()
   email: string;
@@ -18,4 +15,7 @@ export class DonatorDto {
 
   @IsString()
   cin: string;
+
+  @IsString()
+  bloodType: string;
 }
