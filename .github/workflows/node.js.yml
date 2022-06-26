@@ -1,0 +1,27 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      # - name: Use Node.js ${{ matrix.node-version }}
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+
