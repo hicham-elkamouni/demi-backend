@@ -1,7 +1,5 @@
 import { PostModule } from './../post/post.module';
 import { Module } from '@nestjs/common';
-import { AppController } from '../testModule/app.controller';
-import { AppService } from '../testModule/app.service';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
@@ -24,7 +22,5 @@ import { CommentModule } from 'src/comment/comment.module';
     PostModule,
     CommentModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
