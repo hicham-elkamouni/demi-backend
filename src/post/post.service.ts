@@ -4,11 +4,12 @@ import { Model } from 'mongoose';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './post.schema';
-
+import { CommentService } from 'src/comment/comment.service';
 @Injectable()
 export class PostService {
   constructor(
     @InjectModel(Post.name) private readonly postModel: Model<Post>,
+    private readonly commentService: CommentService,
   ) {}
 
   async create(createPostDto: CreatePostDto) {
@@ -34,6 +35,20 @@ export class PostService {
   update(id: string, updatePostDto: UpdatePostDto) {
     // update one post
     return this.postModel.findByIdAndUpdate(id, updatePostDto);
+  }
+
+  //get post with comments
+  async findWithComments(id: string) {
+    try {
+      const post = await this.postModel.findById(id);
+      if (!post) {
+        return { error: 'Post not found' };
+      }
+      const comments = await this.commentService.findOne(id);
+      return { post, comments };
+    } catch (error) {
+      return { error: error.message };
+    }
   }
 
   async findByUser(userId: string) {

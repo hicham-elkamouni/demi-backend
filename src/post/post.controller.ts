@@ -1,3 +1,4 @@
+import { CommentService } from './../comment/comment.service';
 import {
   Controller,
   Get,
@@ -16,7 +17,10 @@ import { PostService } from './post.service';
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    private readonly commentService: CommentService,
+  ) {}
 
   @Post()
   async create(@Body() createPostDto: CreatePostDto) {
@@ -26,6 +30,13 @@ export class PostController {
     } catch (error) {
       return { error: error.message };
     }
+  }
+
+  @Get('postWithComments/:id')
+  async findPostWithComments(@Param('id') id: string) {
+    const comments = await this.commentService.findPostWithComments(id);
+    const post = await this.postService.findOne(id);
+    return { post, comments };
   }
 
   @Get()

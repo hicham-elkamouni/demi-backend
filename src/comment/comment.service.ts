@@ -29,6 +29,10 @@ export class CommentService {
     return this.commentModel.findById(id);
   }
 
+  findPostWithComments(id: string) {
+    return this.commentModel.find({ post: id });
+  }
+
   update(id: string, updateCommentDto: UpdateCommentDto) {
     return this.commentModel.findByIdAndUpdate(id, updateCommentDto);
   }
@@ -44,6 +48,19 @@ export class CommentService {
         return { error: 'Comment not found' };
       }
       return this.commentModel.findByIdAndDelete(id);
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
+  async findWithPost(id: string) {
+    try {
+      const comment = await this.commentModel.findById(id);
+      if (!comment) {
+        return { error: 'Comment not found' };
+      }
+      const post = await this.commentModel.findById(comment.post);
+      return { comment, post };
     } catch (error) {
       return { error: error.message };
     }
