@@ -19,7 +19,8 @@ export class PostDto {
 
   @IsString()
   @IsNotEmpty()
-  type: 'donation' | 'request' | 'campaign';
+  @IsIn(['donation', 'request', 'campaign'])
+  type: string;
 
   @IsString()
   @IsNotEmpty()
