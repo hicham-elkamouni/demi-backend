@@ -11,11 +11,17 @@ export class Post extends Document {
   @Prop({ required: true })
   bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
 
-  @Prop({ required: true })
-  type: 'donation' | 'request' | 'campaign';
+  @Prop()
+  type: PostType;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Donator' })
   createdBy: Donator;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
+
+enum PostType {
+  donation = 'donation',
+  request = 'request',
+  campaign = 'campaign',
+}
